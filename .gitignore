@@ -1,0 +1,18 @@
+# Ignored files and directories
+node_modules/
+vendor/
+
+# Environment and Credentials
+.env
+app/Config/config.php
+
+# Ignore uploaded user files, but keep the directory
+public/uploads/*
+!public/uploads/.gitkeep
+
+# IDE and OS specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
