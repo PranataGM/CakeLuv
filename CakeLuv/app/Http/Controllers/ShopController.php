@@ -10,41 +10,23 @@ class ShopController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::where('is_available', true);
-
-        // Filter by category
-        if ($request->has('category') && $request->category !== '') {
-            $query->whereHas('category', function ($q) use ($request) {
-                $q->where('slug', $request->category);
+        $cakesQuery = Product::where('is_available', true)
+            ->whereHas('category', function ($q) {
+                $q->where('slug', '!=', 'lilin-aksesoris');
             });
-        }
+            
+        $accessoriesQuery = Product::where('is_available', true)
+            ->whereHas('category', function ($q) {
+                $q->where('slug', 'lilin-aksesoris');
+            });
 
-        // Sort
-        if ($request->has('sort')) {
-            switch ($request->sort) {
-                case 'price_asc':
-                    $query->orderBy('price', 'asc');
-                    break;
-                case 'price_desc':
-                    $query->orderBy('price', 'desc');
-                    break;
-                case 'name_asc':
-                    $query->orderBy('name', 'asc');
-                    break;
-                case 'name_desc':
-                    $query->orderBy('name', 'desc');
-                    break;
-                default:
-                    $query->latest();
-            }
-        } else {
-            $query->latest();
-        }
-
-        $products = $query->paginate(9)->withQueryString();
+        // Sort applied to both if necessary, or just latest
+        $cakes = $cakesQuery->latest()->get();
+        $accessories = $accessoriesQuery->latest()->get();
+        
         $categories = Category::all();
 
-        return view('shop.index', compact('products', 'categories'));
+        return view('shop.index', compact('cakes', 'accessories', 'categories'));
     }
 
     public function show($slug)

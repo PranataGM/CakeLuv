@@ -22,8 +22,8 @@
                 <a href="{{ url('/shop') }}" class="bg-primary hover:bg-primary_hover text-white font-bold py-4 px-10 rounded-full transition-all duration-300 shadow-[0_10px_20px_rgba(197,131,124,0.3)] hover:shadow-[0_15px_30px_rgba(197,131,124,0.4)] hover:-translate-y-1 tracking-wide">LIHAT KATALOG</a>
             </div>
         </div>
-        <div class="md:w-1/2 mt-12 md:mt-0 relative" data-aos="fade-left" data-aos-delay="200">
-            <div class="relative w-full max-w-md mx-auto aspect-[4/5] rounded-t-full overflow-hidden shadow-2xl border-8 border-white bg-white">
+        <div class="md:w-1/2 mt-12 md:mt-0 relative flex justify-center" data-aos="fade-left" data-aos-delay="200">
+            <div class="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-t-full overflow-hidden shadow-2xl border-8 border-white bg-white">
                 <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=1000&fit=crop" alt="Signature Cake" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
             </div>
             <div class="absolute bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl animate-bounce">

@@ -61,68 +61,171 @@
 
             <!-- Product Grid -->
             <div class="w-full lg:w-3/4">
-                @if($products->count() > 0)
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                        @foreach($products as $index => $item)
-                        <div class="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 group border border-gray-100 overflow-hidden flex flex-col" data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
-                            <a href="{{ url('/shop/' . $item->slug) }}" class="relative h-64 overflow-hidden block">
-                                <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700">
-                                @if($item->category->slug == 'best-sellers')
-                                    <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-primary tracking-wider uppercase">Best Seller</div>
-                                @endif
-                                @if($item->daily_stock <= 0)
-                                    <div class="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
-                                        <span class="bg-dark text-white px-4 py-2 rounded-full text-xs font-bold tracking-widest uppercase">Habis Terjual</span>
-                                    </div>
-                                @endif
-                            </a>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <div class="text-xs text-primary font-bold tracking-widest uppercase mb-2">{{ $item->category->name }}</div>
-                                <a href="{{ url('/shop/' . $item->slug) }}" class="block mb-2">
-                                    <h4 class="font-serif font-bold text-xl text-dark group-hover:text-primary transition-colors line-clamp-1">{{ $item->name }}</h4>
-                                </a>
-                                <p class="text-gray-500 text-sm font-light line-clamp-2 mb-6 flex-grow">{{ $item->description }}</p>
-                                
-                                <div class="flex justify-between items-center pt-4 border-t border-gray-100">
-                                    <span class="text-dark font-bold text-lg tracking-wide">Rp {{ number_format($item->price * 1000, 0, ',', '.') }}</span>
-                                    
-                                    @if($item->daily_stock > 0)
-                                    <form action="{{ url('/cart/add') }}" method="POST" class="inline">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $item->id }}">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <button type="button" onclick="addToCart(this)" class="bg-secondary text-primary hover:bg-primary hover:text-white rounded-full p-3 transition-colors shadow-sm">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                        </button>
-                                    </form>
-                                    @else
-                                    <button disabled class="bg-gray-100 text-gray-400 rounded-full p-3 cursor-not-allowed">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                    </button>
+                <style>
+                    .horizontal-grid {
+                        display: grid;
+                        grid-auto-flow: column;
+                        grid-auto-columns: 280px;
+                        gap: 2rem;
+                        overflow-x: auto;
+                        padding-bottom: 1.5rem;
+                        cursor: grab;
+                    }
+                    .horizontal-grid:active {
+                        cursor: grabbing;
+                    }
+                    .grid-rows-3 { grid-template-rows: repeat(3, minmax(0, 1fr)); }
+                    .grid-rows-1 { grid-template-rows: repeat(1, minmax(0, 1fr)); }
+                    .horizontal-grid::-webkit-scrollbar { height: 6px; }
+                    .horizontal-grid::-webkit-scrollbar-track { background: #FAF9F6; border-radius: 10px; }
+                    .horizontal-grid::-webkit-scrollbar-thumb { background: #e0b4b0; border-radius: 10px; }
+                    .horizontal-grid::-webkit-scrollbar-thumb:hover { background: #C5837C; }
+                </style>
+
+                <!-- Section Kue -->
+                <div class="mb-12">
+                    <h2 class="font-serif text-3xl font-bold text-dark mb-6">Aneka Kue & Dessert</h2>
+                    @if($cakes->count() > 0)
+                        <div class="horizontal-grid grid-rows-3" id="kueGrid">
+                            @foreach($cakes as $index => $item)
+                            <div class="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 group border border-gray-100 overflow-hidden flex flex-col h-[420px]" data-aos="fade-left" data-aos-delay="{{ ($index % 3) * 100 }}">
+                                <a href="{{ url('/shop/' . $item->slug) }}" class="relative h-48 overflow-hidden block flex-shrink-0">
+                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 pointer-events-none">
+                                    @if($item->category->slug == 'best-sellers')
+                                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-[10px] font-bold text-primary tracking-wider uppercase">Best Seller</div>
                                     @endif
+                                    @if($item->daily_stock <= 0)
+                                        <div class="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
+                                            <span class="bg-dark text-white px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">Habis Terjual</span>
+                                        </div>
+                                    @endif
+                                </a>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="text-[10px] text-primary font-bold tracking-widest uppercase mb-1">{{ $item->category->name }}</div>
+                                    <a href="{{ url('/shop/' . $item->slug) }}" class="block mb-1">
+                                        <h4 class="font-serif font-bold text-lg text-dark group-hover:text-primary transition-colors line-clamp-1">{{ $item->name }}</h4>
+                                    </a>
+                                    <p class="text-gray-500 text-xs font-light line-clamp-2 mb-4 flex-grow">{{ $item->description }}</p>
+                                    
+                                    <div class="flex justify-between items-center pt-3 border-t border-gray-100 mt-auto">
+                                        <span class="text-dark font-bold text-base tracking-wide">Rp {{ number_format($item->price * 1000, 0, ',', '.') }}</span>
+                                        
+                                        @if($item->daily_stock > 0)
+                                        <form action="{{ url('/cart/add') }}" method="POST" class="inline">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="button" onclick="addToCart(this)" class="bg-secondary text-primary hover:bg-primary hover:text-white rounded-full p-2.5 transition-colors shadow-sm">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            </button>
+                                        </form>
+                                        @else
+                                        <button disabled class="bg-gray-100 text-gray-400 rounded-full p-2.5 cursor-not-allowed">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                        </button>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
-                    
-                    <!-- Pagination -->
-                    <div class="mt-12 flex justify-center">
-                        {{ $products->links('pagination::tailwind') }}
-                    </div>
-                @else
-                    <div class="text-center py-20 bg-secondary/30 rounded-3xl border border-dashed border-gray-300">
-                        <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <h3 class="font-serif text-2xl font-bold text-gray-500 mb-2">Produk Tidak Ditemukan</h3>
-                        <p class="text-gray-400 font-light">Maaf, kami tidak dapat menemukan produk yang sesuai dengan kriteria filter Anda.</p>
-                        <a href="{{ url('/shop') }}" class="mt-6 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-primary_hover transition shadow-lg text-sm tracking-wide">RESET FILTER</a>
-                    </div>
-                @endif
+                    @else
+                        <p class="text-gray-400 font-light text-sm italic">Belum ada produk kue.</p>
+                    @endif
+                </div>
+
+                <!-- Section Lilin & Aksesoris -->
+                <div>
+                    <h2 class="font-serif text-3xl font-bold text-dark mb-6">Lilin & Aksesoris</h2>
+                    @if($accessories->count() > 0)
+                        <div class="horizontal-grid grid-rows-1" id="lilinGrid">
+                            @foreach($accessories as $index => $item)
+                            <div class="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition-all duration-300 group border border-gray-100 overflow-hidden flex flex-col h-[420px]" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                                <a href="{{ url('/shop/' . $item->slug) }}" class="relative h-48 overflow-hidden block flex-shrink-0">
+                                    <img src="{{ $item->image_url }}" alt="{{ $item->name }}" class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 pointer-events-none">
+                                    @if($item->daily_stock <= 0)
+                                        <div class="absolute inset-0 bg-white/60 backdrop-blur-[2px] flex items-center justify-center">
+                                            <span class="bg-dark text-white px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase">Habis Terjual</span>
+                                        </div>
+                                    @endif
+                                </a>
+                                <div class="p-5 flex flex-col flex-grow">
+                                    <div class="text-[10px] text-primary font-bold tracking-widest uppercase mb-1">{{ $item->category->name }}</div>
+                                    <a href="{{ url('/shop/' . $item->slug) }}" class="block mb-1">
+                                        <h4 class="font-serif font-bold text-lg text-dark group-hover:text-primary transition-colors line-clamp-1">{{ $item->name }}</h4>
+                                    </a>
+                                    <p class="text-gray-500 text-xs font-light line-clamp-2 mb-4 flex-grow">{{ $item->description }}</p>
+                                    
+                                    <div class="flex justify-between items-center pt-3 border-t border-gray-100 mt-auto">
+                                        <span class="text-dark font-bold text-base tracking-wide">Rp {{ number_format($item->price * 1000, 0, ',', '.') }}</span>
+                                        
+                                        @if($item->daily_stock > 0)
+                                        <form action="{{ url('/cart/add') }}" method="POST" class="inline">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $item->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="button" onclick="addToCart(this)" class="bg-secondary text-primary hover:bg-primary hover:text-white rounded-full p-2.5 transition-colors shadow-sm">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            </button>
+                                        </form>
+                                        @else
+                                        <button disabled class="bg-gray-100 text-gray-400 rounded-full p-2.5 cursor-not-allowed">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                        </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-gray-400 font-light text-sm italic">Belum ada produk aksesoris / lilin.</p>
+                    @endif
+                </div>
+
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+    // Add drag to scroll functionality
+    function makeScrollable(id) {
+        const slider = document.getElementById(id);
+        if(!slider) return;
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        makeScrollable('kueGrid');
+        makeScrollable('lilinGrid');
+    });
+</script>
 
 <script>
 function addToCart(button) {

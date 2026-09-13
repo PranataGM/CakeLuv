@@ -18,17 +18,16 @@ Route::get('/register', [AuthController::class, 'showRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Profile & Cart
+Route::post('/cart/add', [\App\Http\Controllers\CartController::class, 'add']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'update']);
     
-    // Cart
     Route::get('/cart', [\App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/add', [\App\Http\Controllers\CartController::class, 'add']);
     Route::post('/cart/update', [\App\Http\Controllers\CartController::class, 'update']);
     Route::post('/cart/remove', [\App\Http\Controllers\CartController::class, 'remove']);
-
+    
     // Checkout
     Route::get('/checkout', [\App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout/process', [\App\Http\Controllers\CheckoutController::class, 'process']);

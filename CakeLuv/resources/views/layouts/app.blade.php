@@ -65,13 +65,16 @@
     <!-- Navbar -->
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="w-1/4 flex justify-start">
                     <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center">
                         <span class="font-serif font-bold text-3xl text-primary tracking-tight">CakeLuv.</span>
                     </a>
                 </div>
-                <div class="flex items-center space-x-8">
+                
+                <!-- Nav Links -->
+                <div class="hidden md:flex flex-1 justify-center space-x-8">
                     @php 
                         $activeClass = "text-primary font-bold border-b-2 border-primary pb-1";
                         $inactiveClass = "text-gray-600 hover:text-primary";
@@ -82,24 +85,28 @@
                     <a href="{{ url('/#about') }}" class="text-sm uppercase tracking-wider transition {{ $inactiveClass }}">Tentang</a>
                     <a href="{{ url('/shop') }}" class="text-sm uppercase tracking-wider transition {{ str_starts_with($currentRoute, 'shop') ? $activeClass : $inactiveClass }}">Katalog</a>
                     <a href="{{ url('/#contact') }}" class="text-sm uppercase tracking-wider transition {{ $inactiveClass }}">Kontak</a>
-                    
-                    <div class="h-6 w-px bg-gray-300 ml-4 mr-4"></div>
+                </div>
 
+                <!-- Right / Auth & Cart -->
+                <div class="w-1/4 flex items-center justify-end space-x-6">
                     <a href="{{ url('/cart') }}" class="text-dark hover:text-primary transition relative group" id="cartIcon">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                     </a>
                     
+                    <div class="h-6 w-px bg-gray-300 hidden md:block"></div>
+                    
                     @auth
                         @if(auth()->user()->role === 'admin')
-                            <a href="{{ url('/admin') }}" class="text-xs uppercase font-bold tracking-wider text-gold hover:text-yellow-600 transition">Admin</a>
+                            <a href="{{ url('/admin') }}" class="hidden md:block text-xs uppercase font-bold tracking-wider text-gold hover:text-yellow-600 transition">Admin</a>
                         @endif
                         <a href="{{ url('/profile') }}" class="text-xs uppercase font-bold tracking-wider text-gray-600 hover:text-primary transition flex items-center gap-2">
                             @if(auth()->user()->avatar)
                                 <img src="{{ auth()->user()->avatar }}" class="w-6 h-6 rounded-full object-cover">
+                            @else
+                                Profil
                             @endif
-                            Profil
                         </a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                        <form method="POST" action="{{ route('logout') }}" class="inline hidden md:block">
                             @csrf
                             <button type="submit" class="text-xs uppercase font-bold tracking-wider text-red-400 hover:text-red-600 transition">Logout</button>
                         </form>
