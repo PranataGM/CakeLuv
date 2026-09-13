@@ -24,7 +24,7 @@
         </div>
         <div class="md:w-1/2 mt-12 md:mt-0 relative flex justify-center" data-aos="fade-left" data-aos-delay="200">
             <div class="relative w-full max-w-sm mx-auto aspect-[4/5] rounded-t-full overflow-hidden shadow-2xl border-8 border-white bg-white">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=1000&fit=crop" alt="Signature Cake" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
+                <img src="{{ \App\Helpers\SiteSettings::get('hero_image', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=1000&fit=crop') }}" alt="Signature Cake" class="object-cover w-full h-full hover:scale-105 transition-transform duration-700">
             </div>
             <div class="absolute bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl animate-bounce">
                 <p class="text-xs text-gray-500 font-bold uppercase tracking-wider">Same Day</p>
@@ -86,7 +86,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row items-center gap-16">
             <div class="md:w-1/2 relative" data-aos="zoom-in-up">
-                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&h=600&fit=crop" alt="Bakery Process" class="rounded-2xl shadow-2xl">
+                @php $aboutImage = \App\Helpers\SiteSettings::get('about_image', 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800&h=600&fit=crop'); @endphp
+                <img src="{{ $aboutImage }}" alt="Bakery Process" class="rounded-2xl shadow-2xl">
                 <div class="absolute -bottom-8 -right-8 bg-primary text-white p-8 rounded-lg shadow-xl text-center hidden md:block">
                     <p class="text-4xl font-serif font-bold">10+</p>
                     <p class="text-sm font-light tracking-widest uppercase mt-1">Tahun<br>Pengalaman</p>
@@ -94,12 +95,9 @@
             </div>
             <div class="md:w-1/2" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="font-serif text-3xl md:text-4xl font-bold text-dark mb-6">Tentang <span class="text-primary italic">Kisah Kami</span></h3>
-                <p class="text-gray-600 font-light leading-relaxed mb-6">
-                    CakeLuv bermula dari dapur kecil yang dipenuhi aroma mentega hangat dan gula karamel. Kami percaya bahwa setiap perayaan layak mendapatkan lebih dari sekadar kue biasa; ia membutuhkan mahakarya rasa.
-                </p>
-                <p class="text-gray-600 font-light leading-relaxed mb-8">
-                    Dengan komitmen menggunakan 100% bahan natural berkualitas premium, cokelat Belgia asli, dan tanpa pengawet buatan, kami terus menciptakan kenangan manis yang berkesan di hati pelanggan kami. Setiap lapisan dipanggang dengan cinta.
-                </p>
+                <p class="text-gray-600 font-light leading-relaxed mb-6 whitespace-pre-line">{{ \App\Helpers\SiteSettings::get('about_text', 'CakeLuv bermula dari dapur kecil yang dipenuhi aroma mentega hangat dan gula karamel. Kami percaya bahwa setiap perayaan layak mendapatkan lebih dari sekadar kue biasa; ia membutuhkan mahakarya rasa.
+
+Dengan komitmen menggunakan 100% bahan natural berkualitas premium, cokelat Belgia asli, dan tanpa pengawet buatan, kami terus menciptakan kenangan manis yang berkesan di hati pelanggan kami. Setiap lapisan dipanggang dengan cinta.') }}</p>
             </div>
         </div>
     </div>
@@ -133,18 +131,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col-reverse md:flex-row items-center gap-16">
             <div class="md:w-1/2" data-aos="fade-right">
-                <h3 class="font-serif text-3xl md:text-4xl font-bold text-dark mb-2">Chef <span class="text-primary italic">Renatta</span></h3>
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-dark mb-2">Chef <span class="text-primary italic">{{ \App\Helpers\SiteSettings::get('chef_name', 'Renatta') }}</span></h3>
                 <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Head Patissier</p>
-                <p class="text-gray-600 font-light leading-relaxed mb-6">
-                    Membawa pengalaman lebih dari 15 tahun dari dapur patisserie ternama di Paris, Chef Renatta memadukan teknik klasik Prancis dengan cita rasa nusantara. 
-                </p>
+                <p class="text-gray-600 font-light leading-relaxed mb-6 whitespace-pre-line">{{ \App\Helpers\SiteSettings::get('chef_desc', 'Membawa pengalaman lebih dari 15 tahun dari dapur patisserie ternama di Paris, Chef Renatta memadukan teknik klasik Prancis dengan cita rasa nusantara.') }}</p>
                 <p class="text-gray-600 font-light leading-relaxed mb-8">
                     "Setiap kue adalah medium seni untuk menceritakan sebuah kisah rasa yang abadi."
                 </p>
                 <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Signature_Example.png" alt="Signature" class="h-12 opacity-50 grayscale">
             </div>
             <div class="md:w-1/2 relative" data-aos="zoom-in-left">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop" alt="Head Patissier" class="rounded-2xl shadow-2xl object-cover h-[500px] w-full border-4 border-white">
+                @php $chefImage = \App\Helpers\SiteSettings::get('chef_image', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop'); @endphp
+                <img src="{{ $chefImage }}" alt="Head Patissier" class="rounded-2xl shadow-2xl object-cover h-[500px] w-full border-4 border-white">
             </div>
         </div>
     </div>
@@ -182,7 +179,7 @@
                         </div>
                         <div>
                             <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Lokasi Toko</h5>
-                            <p class="text-gray-400 font-light leading-relaxed">London Bakery & Cake<br>Kebon Agung</p>
+                            <p class="text-gray-400 font-light leading-relaxed whitespace-pre-line">{{ \App\Helpers\SiteSettings::get('contact_address', 'London Bakery & Cake' . "\n" . 'Kebon Agung') }}</p>
                         </div>
                     </div>
 
@@ -192,7 +189,7 @@
                         </div>
                         <div>
                             <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Telepon / WhatsApp</h5>
-                            <p class="text-gray-400 font-light leading-relaxed">+62 812-3456-7890</p>
+                            <p class="text-gray-400 font-light leading-relaxed">{{ \App\Helpers\SiteSettings::get('contact_phone', '+62 812-3456-7890') }}</p>
                         </div>
                     </div>
 
@@ -202,7 +199,7 @@
                         </div>
                         <div>
                             <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Alamat Email</h5>
-                            <p class="text-gray-400 font-light leading-relaxed">hello@cakeluv.com</p>
+                            <p class="text-gray-400 font-light leading-relaxed">{{ \App\Helpers\SiteSettings::get('contact_email', 'hello@cakeluv.com') }}</p>
                         </div>
                     </div>
                 </div>
@@ -210,7 +207,14 @@
 
             <!-- Maps iframe -->
             <div class="lg:w-7/12 min-h-[400px] lg:min-h-[600px] relative bg-gray-100">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17893.321667423934!2d110.34309729229126!3d-7.745714278271933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59c30ef26b91%3A0xf5da7f9635877fe4!2sLondon%20Bakery%20%26%20Cake%20Kebon%20Agung!5e1!3m2!1sid!2sid!4v1789319856441!5m2!1sid!2sid" width="100%" height="100%" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                @php 
+                    $iframeStr = \App\Helpers\SiteSettings::get('map_iframe', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17893.321667423934!2d110.34309729229126!3d-7.745714278271933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59c30ef26b91%3A0xf5da7f9635877fe4!2sLondon%20Bakery%20%26%20Cake%20Kebon%20Agung!5e1!3m2!1sid!2sid!4v1789319856441!5m2!1sid!2sid');
+                    // Extract src if full iframe is provided
+                    if(preg_match('/src="([^"]+)"/', $iframeStr, $matches)) {
+                        $iframeStr = $matches[1];
+                    }
+                @endphp
+                <iframe src="{{ $iframeStr }}" width="100%" height="100%" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
 
         </div>
