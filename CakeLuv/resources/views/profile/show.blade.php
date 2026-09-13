@@ -46,11 +46,21 @@
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Bio / Catatan</label>
                             <textarea name="bio" rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:border-primary text-sm font-light">{{ old('bio', $user->bio) }}</textarea>
                         </div>
-                        <button type="submit" class="w-full bg-primary hover:bg-primary_hover text-white font-bold py-3 rounded-xl transition-all shadow-md mt-4 tracking-wide uppercase text-sm">
+                        <button type="submit" class="w-full bg-primary hover:bg-primary_hover text-white font-bold py-3 rounded-xl transition-all shadow-md tracking-wide uppercase text-sm">
                             Simpan Profil
                         </button>
                     </div>
                 </form>
+
+                <div class="mt-4 pt-4 border-t border-gray-100">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="w-full bg-red-50 hover:bg-red-100 text-red-500 font-bold py-3 rounded-xl transition-colors tracking-wide uppercase text-sm flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            Keluar Akun
+                        </button>
+                    </form>
+                </div>
             </div>
 
             <!-- Order History -->

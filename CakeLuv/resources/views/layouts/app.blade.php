@@ -101,15 +101,11 @@
                         @endif
                         <a href="{{ url('/profile') }}" class="text-xs uppercase font-bold tracking-wider text-gray-600 hover:text-primary transition flex items-center gap-2">
                             @if(auth()->user()->avatar)
-                                <img src="{{ auth()->user()->avatar }}" class="w-6 h-6 rounded-full object-cover">
+                                <img src="{{ auth()->user()->avatar }}" class="w-6 h-6 rounded-full object-cover shadow-sm">
                             @else
                                 Profil
                             @endif
                         </a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline hidden md:block">
-                            @csrf
-                            <button type="submit" class="text-xs uppercase font-bold tracking-wider text-red-400 hover:text-red-600 transition">Logout</button>
-                        </form>
                     @else
                         <a href="{{ url('/login') }}" class="text-xs uppercase font-bold tracking-wider text-gray-600 hover:text-primary transition">Login</a>
                     @endauth
