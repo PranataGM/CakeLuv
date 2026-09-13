@@ -50,7 +50,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-center text-gray-500 text-xs">
-                        {{ $product->created_at->format('d M Y, H:i') }}
+                        {{ $product->created_at ? $product->created_at->format('d M Y, H:i') : '-' }}
                     </td>
                     <td class="px-6 py-4 text-center">
                         <button onclick="openModal('modal-edit-{{ $product->id }}')" class="text-blue-500 hover:text-blue-700 font-bold text-xs uppercase tracking-wider mr-3">Edit</button>

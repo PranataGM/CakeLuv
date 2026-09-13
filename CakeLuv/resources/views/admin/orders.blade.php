@@ -20,7 +20,7 @@
             <tbody class="divide-y divide-gray-100 text-sm">
                 @forelse($orders as $order)
                 <tr class="hover:bg-gray-50 transition">
-                    <td class="px-6 py-4 font-bold text-gray-800">{{ $order->order_number }}<br><span class="text-xs text-gray-400 font-normal">{{ $order->created_at->format('d M Y, H:i') }}</span></td>
+                    <td class="px-6 py-4 font-bold text-gray-800">{{ $order->order_number }}<br><span class="text-xs text-gray-400 font-normal">{{ $order->created_at ? $order->created_at->format('d M Y, H:i') : '-' }}</span></td>
                     <td class="px-6 py-4">{{ $order->user->name ?? 'Guest' }}<br><span class="text-xs text-gray-400">{{ $order->user->email ?? '' }}</span></td>
                     <td class="px-6 py-4 font-bold text-primary">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-center uppercase text-xs font-bold tracking-wider">{{ $order->delivery_type }}</td>
