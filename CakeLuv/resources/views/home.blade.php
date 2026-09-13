@@ -151,37 +151,66 @@
 </div>
 
 <!-- CONTACT SECTION -->
-<div id="contact" class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
-        <div class="text-center mb-12">
-            <h3 class="font-serif text-3xl md:text-4xl font-bold mb-6 text-dark">Hubungi <span class="text-primary italic">Kami</span></h3>
-            <p class="text-gray-500 font-light max-w-2xl mx-auto">Ada pesanan khusus atau pertanyaan? Kunjungi toko kami atau hubungi tim kami.</p>
+<div id="contact" class="py-24 bg-secondary relative overflow-hidden">
+    <!-- Decorative Blur Background -->
+    <div class="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -ml-20 -mt-20"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl -mr-20 -mb-20"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10" data-aos="fade-up">
+        <div class="text-center mb-16">
+            <h3 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-dark">Temukan <span class="text-primary italic">Kami</span></h3>
+            <p class="text-gray-500 font-light max-w-2xl mx-auto text-lg">Kunjungi toko kami atau hubungi tim untuk pesanan khusus dan kustomisasi kue impian Anda.</p>
         </div>
         
-        <div class="flex flex-col lg:flex-row gap-12 items-stretch">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-gray-100">
             
-            <!-- Contact Info -->
-            <div class="lg:w-1/3 flex flex-col gap-6">
-                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
-                    <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <h5 class="font-bold mb-2 text-dark">Lokasi</h5>
-                    <p class="text-sm text-gray-500 font-light">London Bakery & Cake<br>Kebon Agung</p>
-                </div>
-                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
-                    <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    <h5 class="font-bold mb-2 text-dark">Telepon</h5>
-                    <p class="text-sm text-gray-500 font-light">+62 812-3456-7890</p>
-                </div>
-                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
-                    <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <h5 class="font-bold mb-2 text-dark">Email</h5>
-                    <p class="text-sm text-gray-500 font-light">hello@cakeluv.com</p>
+            <!-- Contact Info Panel -->
+            <div class="lg:w-5/12 bg-dark text-white p-10 lg:p-14 flex flex-col justify-center relative overflow-hidden">
+                <!-- Abstract Pattern / Accents -->
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full border border-primary/20 opacity-50"></div>
+                <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full border border-primary/10 opacity-50"></div>
+                
+                <div class="relative z-10 space-y-10">
+                    <div class="mb-4">
+                        <h4 class="font-serif text-3xl text-primary font-bold mb-2">CakeLuv.</h4>
+                        <p class="text-gray-400 font-light text-sm leading-relaxed">Hadir menemani setiap momen spesial Anda. Kami siap memberikan pelayanan terbaik dengan bahan-bahan premium.</p>
+                    </div>
+
+                    <div class="flex items-start gap-5 group cursor-default">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 flex-shrink-0 shadow-sm border border-primary/20 group-hover:border-primary">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Lokasi Toko</h5>
+                            <p class="text-gray-400 font-light leading-relaxed">London Bakery & Cake<br>Kebon Agung</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-5 group cursor-default">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 flex-shrink-0 shadow-sm border border-primary/20 group-hover:border-primary">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Telepon / WhatsApp</h5>
+                            <p class="text-gray-400 font-light leading-relaxed">+62 812-3456-7890</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-5 group cursor-default">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 flex-shrink-0 shadow-sm border border-primary/20 group-hover:border-primary">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h5 class="text-lg font-bold text-white mb-1 tracking-wide">Alamat Email</h5>
+                            <p class="text-gray-400 font-light leading-relaxed">hello@cakeluv.com</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Maps iframe -->
-            <div class="lg:w-2/3 h-[500px] rounded-2xl overflow-hidden shadow-xl border border-gray-200">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17893.321667423934!2d110.34309729229126!3d-7.745714278271933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59c30ef26b91%3A0xf5da7f9635877fe4!2sLondon%20Bakery%20%26%20Cake%20Kebon%20Agung!5e1!3m2!1sid!2sid!4v1789319856441!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <div class="lg:w-7/12 min-h-[400px] lg:min-h-[600px] relative bg-gray-100">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17893.321667423934!2d110.34309729229126!3d-7.745714278271933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59c30ef26b91%3A0xf5da7f9635877fe4!2sLondon%20Bakery%20%26%20Cake%20Kebon%20Agung!5e1!3m2!1sid!2sid!4v1789319856441!5m2!1sid!2sid" width="100%" height="100%" style="border:0; position:absolute; top:0; left:0; width:100%; height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
 
         </div>
