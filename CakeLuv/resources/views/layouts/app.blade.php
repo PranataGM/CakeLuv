@@ -74,14 +74,14 @@
                 </div>
                 
                 <!-- Nav Links -->
-                <div class="hidden md:flex flex-1 justify-center space-x-5">
+                <div class="hidden md:flex flex-1 justify-center gap-8 items-center">
                     @php 
                         $activeClass = "text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary";
                         $inactiveClass = "text-gray-600 hover:text-primary";
                         $currentRoute = request()->path();
                     @endphp
                     
-                    <a href="{{ url('/') }}" class="text-sm uppercase tracking-wider transition {{ $currentRoute == '/' ? $activeClass : $inactiveClass }}">Beranda</a>
+                    <a href="{{ url('/') }}" class="text-sm uppercase tracking-wider transition {{ $currentRoute == '/' || $currentRoute == '' ? $activeClass : $inactiveClass }}">Beranda</a>
                     <a href="{{ url('/#about') }}" class="text-sm uppercase tracking-wider transition {{ $inactiveClass }}">Tentang</a>
                     <a href="{{ url('/shop') }}" class="text-sm uppercase tracking-wider transition {{ str_starts_with($currentRoute, 'shop') ? $activeClass : $inactiveClass }}">Katalog</a>
                     <a href="{{ url('/#contact') }}" class="text-sm uppercase tracking-wider transition {{ $inactiveClass }}">Kontak</a>
