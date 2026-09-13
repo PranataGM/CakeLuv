@@ -11,11 +11,22 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->orderBy('created_at', 'desc')->paginate(10);
         $categories = \App\Models\Category::all();
-        return view('admin.products', compact('products', 'categories'));
+        $sort = $request->query('sort', 'desc');
+        
+        $cakes = Product::with('category')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'not like', '%lilin%');
+            })->orderBy('created_at', $sort)->get();
+            
+        $candles = Product::with('category')
+            ->whereHas('category', function($q) {
+                $q->where('name', 'like', '%lilin%');
+            })->orderBy('created_at', $sort)->get();
+            
+        return view('admin.products', compact('cakes', 'candles', 'categories', 'sort'));
     }
 
     public function store(Request $request)

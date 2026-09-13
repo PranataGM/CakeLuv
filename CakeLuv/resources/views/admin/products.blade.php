@@ -4,14 +4,22 @@
 
 @section('content')
 <div class="mb-6 flex justify-between items-center">
-    <h2 class="text-gray-700 font-bold">Daftar Produk</h2>
-    <button onclick="openModal('modal-add')" class="bg-primary hover:bg-primary_hover text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-        Tambah Produk
-    </button>
+    <h2 class="text-gray-700 font-bold text-xl">Daftar Produk</h2>
+    <div class="flex items-center gap-4">
+        <select onchange="window.location.href=this.value" class="px-4 py-2.5 rounded-xl border border-gray-200 bg-white text-gray-600 focus:outline-none focus:border-primary text-sm font-medium">
+            <option value="{{ route('admin.products.index', ['sort' => 'desc']) }}" {{ $sort == 'desc' ? 'selected' : '' }}>Waktu Ditambahkan: Terbaru</option>
+            <option value="{{ route('admin.products.index', ['sort' => 'asc']) }}" {{ $sort == 'asc' ? 'selected' : '' }}>Waktu Ditambahkan: Terlama</option>
+        </select>
+        <button onclick="openModal('modal-add')" class="bg-primary hover:bg-primary_hover text-white px-5 py-2.5 rounded-xl font-bold transition flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            Tambah Produk
+        </button>
+    </div>
 </div>
 
-<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+@foreach(['Daftar Kue' => $cakes, 'Daftar Lilin' => $candles] as $title => $products)
+<h3 class="text-gray-700 font-bold mb-4 text-lg">{{ $title }}</h3>
+<div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-8">
     <div class="overflow-x-auto">
         <table class="w-full whitespace-nowrap">
             <thead class="bg-gray-50 text-gray-500 text-xs font-bold uppercase tracking-wider">
@@ -20,6 +28,7 @@
                     <th class="px-6 py-4 text-left">Kategori</th>
                     <th class="px-6 py-4 text-left">Harga</th>
                     <th class="px-6 py-4 text-center">Stok Harian</th>
+                    <th class="px-6 py-4 text-center">Waktu Ditambahkan</th>
                     <th class="px-6 py-4 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -40,6 +49,9 @@
                             {{ $product->daily_stock }}
                         </span>
                     </td>
+                    <td class="px-6 py-4 text-center text-gray-500 text-xs">
+                        {{ $product->created_at->format('d M Y, H:i') }}
+                    </td>
                     <td class="px-6 py-4 text-center">
                         <button onclick="openModal('modal-edit-{{ $product->id }}')" class="text-blue-500 hover:text-blue-700 font-bold text-xs uppercase tracking-wider mr-3">Edit</button>
                         <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
@@ -58,7 +70,7 @@
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                         </div>
-                        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="p-6">
+                        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="p-6 text-left whitespace-normal">
                             @csrf
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                 <div>
@@ -100,17 +112,14 @@
                 </div>
                 @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">Belum ada produk.</td>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">Belum ada produk untuk section ini.</td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-    
-    <div class="p-4 border-t border-gray-100">
-        {{ $products->links() }}
-    </div>
 </div>
+@endforeach
 
 <!-- Modal Add -->
 <div id="modal-add" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex items-center justify-center z-50">
