@@ -24,9 +24,11 @@ class CartController extends Controller
     {
         $now = now()->setTimezone('Asia/Jakarta');
         $hour = $now->hour;
-        if ($hour < 8 || $hour >= 20) {
+        // dinonaktifkan sementara untuk testing:
+        // if ($hour < 8 || $hour >= 20) {
+        if (false) {
             return response()->json([
-                'status' => 'error',
+                'status' => 'closed',
                 'message' => 'Toko tutup. Jam operasional kami 08:00 - 20:00 WIB.'
             ]);
         }

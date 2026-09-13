@@ -74,9 +74,9 @@
                 </div>
                 
                 <!-- Nav Links -->
-                <div class="hidden md:flex flex-1 justify-center space-x-8">
+                <div class="hidden md:flex flex-1 justify-center space-x-5">
                     @php 
-                        $activeClass = "text-primary font-bold border-b-2 border-primary pb-1";
+                        $activeClass = "text-primary font-bold relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-full after:h-0.5 after:bg-primary";
                         $inactiveClass = "text-gray-600 hover:text-primary";
                         $currentRoute = request()->path();
                     @endphp
@@ -161,7 +161,54 @@
     <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[100] flex flex-col gap-3 pointer-events-none"></div>
 
+    <!-- Closed Store Modal -->
+    <div id="closedModal" class="fixed inset-0 z-[200] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-dark/60 backdrop-blur-sm transition-opacity" onclick="closeStoreModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <div class="relative bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full border-t-8 border-primary animate-bounce-short">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-red-100 sm:mx-0 sm:h-12 sm:w-12 shadow-inner">
+                            <svg class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-6 sm:text-left">
+                            <h3 class="text-2xl leading-6 font-serif font-bold text-dark mb-2" id="modal-title">
+                                Maaf, Toko Sedang Tutup
+                            </h3>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-500 leading-relaxed">
+                                    Saat ini kami sedang beristirahat. Anda tidak dapat melakukan pemesanan (Add to Cart atau Checkout) di luar jam operasional.
+                                </p>
+                                <div class="mt-4 bg-secondary/50 p-4 rounded-xl border border-gray-100">
+                                    <p class="text-sm font-bold text-dark"><span class="text-primary mr-2">🕒</span> Jam Operasional Kami:</p>
+                                    <p class="text-lg font-serif font-bold text-primary mt-1">08:00 - 20:00 WIB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
+                    <button type="button" onclick="closeStoreModal()" class="w-full inline-flex justify-center rounded-full border border-transparent shadow-sm px-8 py-3 bg-primary text-base font-bold text-white hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm transition">
+                        Mengerti
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        .animate-bounce-short { animation: bounce-short 0.5s ease-out; }
+        @keyframes bounce-short {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
     <script>
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
@@ -184,12 +231,24 @@
             }, 3000);
         }
 
+        function openStoreModal() {
+            document.getElementById('closedModal').classList.remove('hidden');
+        }
+
+        function closeStoreModal() {
+            document.getElementById('closedModal').classList.add('hidden');
+        }
+
         @if(session('success'))
             window.addEventListener('DOMContentLoaded', () => showToast("{{ session('success') }}", 'success'));
         @endif
         
         @if(session('error'))
             window.addEventListener('DOMContentLoaded', () => showToast("{{ session('error') }}", 'error'));
+        @endif
+
+        @if(session('closed'))
+            window.addEventListener('DOMContentLoaded', () => openStoreModal());
         @endif
 
         AOS.init({ duration: 800, easing: 'ease-in-out', once: true, offset: 50 });

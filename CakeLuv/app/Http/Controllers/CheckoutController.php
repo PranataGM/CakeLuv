@@ -34,8 +34,10 @@ class CheckoutController extends Controller
     {
         $now = now()->setTimezone('Asia/Jakarta');
         $hour = $now->hour;
-        if ($hour < 8 || $hour >= 20) {
-            return back()->with('error', 'Toko tutup. Jam operasional kami 08:00 - 20:00 WIB.');
+        // dinonaktifkan sementara untuk testing:
+        // if ($hour < 8 || $hour >= 20) {
+        if (false) {
+            return back()->with('closed', true);
         }
 
         $request->validate([

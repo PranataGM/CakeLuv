@@ -151,36 +151,36 @@
 </div>
 
 <!-- CONTACT SECTION -->
-<div id="contact" class="py-24 bg-dark text-white">
+<div id="contact" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-aos="fade-up">
         <div class="text-center mb-12">
-            <h3 class="font-serif text-3xl md:text-4xl font-bold mb-6">Hubungi <span class="text-primary italic">Kami</span></h3>
-            <p class="text-gray-400 font-light max-w-2xl mx-auto">Ada pesanan khusus atau pertanyaan? Kunjungi toko kami atau hubungi tim kami.</p>
+            <h3 class="font-serif text-3xl md:text-4xl font-bold mb-6 text-dark">Hubungi <span class="text-primary italic">Kami</span></h3>
+            <p class="text-gray-500 font-light max-w-2xl mx-auto">Ada pesanan khusus atau pertanyaan? Kunjungi toko kami atau hubungi tim kami.</p>
         </div>
         
         <div class="flex flex-col lg:flex-row gap-12 items-stretch">
             
             <!-- Contact Info -->
             <div class="lg:w-1/3 flex flex-col gap-6">
-                <div class="bg-white/5 p-8 rounded-2xl border border-gray-700 hover:bg-white/10 transition flex-1 flex flex-col justify-center items-center text-center">
+                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
                     <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <h5 class="font-bold mb-2">Lokasi</h5>
-                    <p class="text-sm text-gray-400 font-light">London Bakery & Cake<br>Kebon Agung</p>
+                    <h5 class="font-bold mb-2 text-dark">Lokasi</h5>
+                    <p class="text-sm text-gray-500 font-light">London Bakery & Cake<br>Kebon Agung</p>
                 </div>
-                <div class="bg-white/5 p-8 rounded-2xl border border-gray-700 hover:bg-white/10 transition flex-1 flex flex-col justify-center items-center text-center">
+                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
                     <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                    <h5 class="font-bold mb-2">Telepon</h5>
-                    <p class="text-sm text-gray-400 font-light">+62 812-3456-7890</p>
+                    <h5 class="font-bold mb-2 text-dark">Telepon</h5>
+                    <p class="text-sm text-gray-500 font-light">+62 812-3456-7890</p>
                 </div>
-                <div class="bg-white/5 p-8 rounded-2xl border border-gray-700 hover:bg-white/10 transition flex-1 flex flex-col justify-center items-center text-center">
+                <div class="bg-secondary/50 p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition flex-1 flex flex-col justify-center items-center text-center">
                     <svg class="w-8 h-8 text-primary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <h5 class="font-bold mb-2">Email</h5>
-                    <p class="text-sm text-gray-400 font-light">hello@cakeluv.com</p>
+                    <h5 class="font-bold mb-2 text-dark">Email</h5>
+                    <p class="text-sm text-gray-500 font-light">hello@cakeluv.com</p>
                 </div>
             </div>
 
             <!-- Maps iframe -->
-            <div class="lg:w-2/3 h-[500px] rounded-2xl overflow-hidden shadow-xl border border-gray-700">
+            <div class="lg:w-2/3 h-[500px] rounded-2xl overflow-hidden shadow-xl border border-gray-200">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17893.321667423934!2d110.34309729229126!3d-7.745714278271933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a59c30ef26b91%3A0xf5da7f9635877fe4!2sLondon%20Bakery%20%26%20Cake%20Kebon%20Agung!5e1!3m2!1sid!2sid!4v1789319856441!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
 
@@ -208,49 +208,51 @@ function addToCart(button) {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(async response => {
+        const data = await response.json();
+        
         button.innerHTML = originalContent;
         if(data.status === 'success') {
             
             // Animation logic
             if (productImage && cartIcon) {
-                const imgClone = productImage.cloneNode();
-                const rect = productImage.getBoundingClientRect();
+                const flyingImage = productImage.cloneNode(true);
+                flyingImage.style.position = 'fixed';
+                flyingImage.style.zIndex = '1000';
+                flyingImage.style.width = '100px';
+                flyingImage.style.height = '100px';
+                flyingImage.style.borderRadius = '50%';
+                flyingImage.style.objectFit = 'cover';
+                
+                const imgRect = productImage.getBoundingClientRect();
+                flyingImage.style.left = imgRect.left + 'px';
+                flyingImage.style.top = imgRect.top + 'px';
+                flyingImage.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+                
+                document.body.appendChild(flyingImage);
+                
                 const cartRect = cartIcon.getBoundingClientRect();
                 
-                imgClone.style.position = 'fixed';
-                imgClone.style.top = rect.top + 'px';
-                imgClone.style.left = rect.left + 'px';
-                imgClone.style.width = rect.width + 'px';
-                imgClone.style.height = rect.height + 'px';
-                imgClone.style.borderRadius = '50%';
-                imgClone.style.objectFit = 'cover';
-                imgClone.style.zIndex = '9999';
-                imgClone.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                imgClone.style.opacity = '0.9';
-                
-                document.body.appendChild(imgClone);
-                
-                // Trigger reflow
-                void imgClone.offsetWidth;
+                requestAnimationFrame(() => {
+                    flyingImage.style.left = (cartRect.left - 20) + 'px';
+                    flyingImage.style.top = cartRect.top + 'px';
+                    flyingImage.style.width = '20px';
+                    flyingImage.style.height = '20px';
+                    flyingImage.style.opacity = '0.5';
+                });
                 
                 setTimeout(() => {
-                    imgClone.style.top = cartRect.top + 'px';
-                    imgClone.style.left = cartRect.left + 'px';
-                    imgClone.style.width = '24px';
-                    imgClone.style.height = '24px';
-                    imgClone.style.opacity = '0.1';
-                }, 10);
-                
-                setTimeout(() => {
-                    imgClone.remove();
+                    flyingImage.remove();
+                    cartIcon.classList.add('animate-bounce');
+                    setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
                     showToast(data.message, 'success');
                 }, 800);
             } else {
                 showToast(data.message, 'success');
             }
             
+        } else if (data.status === 'closed') {
+            openStoreModal();
         } else {
             showToast(data.message, 'error');
             if(data.message.includes('login') || data.redirect) {

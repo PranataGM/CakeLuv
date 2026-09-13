@@ -147,46 +147,50 @@ function submitCart() {
             'X-Requested-With': 'XMLHttpRequest'
         }
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(async response => {
+        const data = await response.json();
+        
         btn.innerHTML = originalContent;
         btn.disabled = false;
-        if(data.status === 'success') {
+        
+        if (data.status === 'success') {
             if (productImage && cartIcon) {
-                const imgClone = productImage.cloneNode();
-                const rect = productImage.getBoundingClientRect();
+                const flyingImage = productImage.cloneNode(true);
+                flyingImage.style.position = 'fixed';
+                flyingImage.style.zIndex = '1000';
+                flyingImage.style.width = '100px';
+                flyingImage.style.height = '100px';
+                flyingImage.style.borderRadius = '50%';
+                flyingImage.style.objectFit = 'cover';
+                
+                const imgRect = productImage.getBoundingClientRect();
+                flyingImage.style.left = imgRect.left + 'px';
+                flyingImage.style.top = imgRect.top + 'px';
+                flyingImage.style.transition = 'all 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
+                
+                document.body.appendChild(flyingImage);
+                
                 const cartRect = cartIcon.getBoundingClientRect();
                 
-                imgClone.style.position = 'fixed';
-                imgClone.style.top = rect.top + 'px';
-                imgClone.style.left = rect.left + 'px';
-                imgClone.style.width = rect.width + 'px';
-                imgClone.style.height = rect.height + 'px';
-                imgClone.style.borderRadius = '50%';
-                imgClone.style.objectFit = 'cover';
-                imgClone.style.zIndex = '9999';
-                imgClone.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                imgClone.style.opacity = '0.9';
-                
-                document.body.appendChild(imgClone);
-                
-                void imgClone.offsetWidth;
+                requestAnimationFrame(() => {
+                    flyingImage.style.left = (cartRect.left - 20) + 'px';
+                    flyingImage.style.top = cartRect.top + 'px';
+                    flyingImage.style.width = '20px';
+                    flyingImage.style.height = '20px';
+                    flyingImage.style.opacity = '0.5';
+                });
                 
                 setTimeout(() => {
-                    imgClone.style.top = cartRect.top + 'px';
-                    imgClone.style.left = cartRect.left + 'px';
-                    imgClone.style.width = '24px';
-                    imgClone.style.height = '24px';
-                    imgClone.style.opacity = '0.1';
-                }, 10);
-                
-                setTimeout(() => {
-                    imgClone.remove();
+                    flyingImage.remove();
+                    cartIcon.classList.add('animate-bounce');
+                    setTimeout(() => cartIcon.classList.remove('animate-bounce'), 1000);
                     showToast(data.message, 'success');
                 }, 800);
             } else {
                 showToast(data.message, 'success');
             }
+        } else if (data.status === 'closed') {
+            openStoreModal();
         } else {
             showToast(data.message, 'error');
             if(data.message.includes('login') || data.redirect) {
