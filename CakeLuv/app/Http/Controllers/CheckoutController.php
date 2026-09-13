@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $cart = Cart::with('items.product')->where('user_id', Auth::id())->first();
 
@@ -22,12 +22,22 @@ class CheckoutController extends Controller
             return redirect('/cart')->with('error', 'Keranjang Anda kosong.');
         }
 
+        $selectedItems = $request->input('selected_items', []);
+        
+        if (count($selectedItems) > 0) {
+            $cart->setRelation('items', $cart->items->whereIn('id', $selectedItems));
+        }
+
+        if ($cart->items->count() == 0) {
+            return redirect('/cart')->with('error', 'Pilih setidaknya satu produk untuk di-checkout.');
+        }
+
         $total = 0;
         foreach ($cart->items as $item) {
             $total += $item->product->price * $item->quantity * 1000;
         }
 
-        return view('checkout.index', compact('cart', 'total'));
+        return view('checkout.index', compact('cart', 'total', 'selectedItems'));
     }
 
     public function process(Request $request)
@@ -50,6 +60,16 @@ class CheckoutController extends Controller
 
         if (!$cart || $cart->items->count() == 0) {
             return redirect('/cart')->with('error', 'Keranjang Anda kosong.');
+        }
+
+        $selectedItems = $request->input('selected_items', []);
+        
+        if (count($selectedItems) > 0) {
+            $cart->setRelation('items', $cart->items->whereIn('id', $selectedItems));
+        }
+
+        if ($cart->items->count() == 0) {
+            return redirect('/cart')->with('error', 'Pilih setidaknya satu produk untuk di-checkout.');
         }
 
         $totalAmount = 0;
@@ -154,8 +174,12 @@ class CheckoutController extends Controller
                 $order->update(['snap_token' => 'MOCK_TOKEN_' . Str::random(10)]);
             }
 
-            // Clear cart
-            $cart->items()->delete();
+            // Clear checkout items from cart
+            if (count($selectedItems) > 0) {
+                $cart->items()->whereIn('id', $selectedItems)->delete();
+            } else {
+                $cart->items()->delete();
+            }
 
             DB::commit();
 

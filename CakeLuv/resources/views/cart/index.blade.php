@@ -23,14 +23,17 @@
                 <div class="lg:w-2/3" data-aos="fade-up">
                     <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
                         <!-- Desktop Header -->
-                        <div class="hidden md:grid grid-cols-12 gap-4 p-6 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            <div class="col-span-6">Produk</div>
+                        <div class="hidden md:grid grid-cols-12 gap-4 p-6 bg-gray-50 border-b border-gray-100 text-xs font-bold text-gray-500 uppercase tracking-widest items-center">
+                            <div class="col-span-6 flex items-center gap-3">
+                                <input type="checkbox" id="selectAll" class="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer" checked onclick="toggleAll(this)">
+                                <label for="selectAll" class="cursor-pointer">Pilih Semua / Produk</label>
+                            </div>
                             <div class="col-span-2 text-center">Harga</div>
                             <div class="col-span-2 text-center">Kuantitas</div>
                             <div class="col-span-2 text-right">Subtotal</div>
                         </div>
 
-                        <div class="divide-y divide-gray-100">
+                        <div class="divide-y divide-gray-100" id="cartItemsContainer">
                             @php $total = 0; @endphp
                             @foreach($cart->items as $item)
                                 @php 
@@ -40,8 +43,9 @@
                                 <div class="p-6">
                                     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                                         <!-- Product Info -->
-                                        <div class="col-span-1 md:col-span-6 flex gap-4">
-                                            <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}" class="w-24 h-24 object-cover rounded-xl border border-gray-100">
+                                        <div class="col-span-1 md:col-span-6 flex gap-4 items-center">
+                                            <input type="checkbox" class="item-checkbox w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer" value="{{ $item->id }}" data-price="{{ $subtotal }}" data-qty="{{ $item->quantity }}" checked onchange="updateTotal()">
+                                            <img src="{{ $item->product->image_url }}" alt="{{ $item->product->name }}" class="w-20 h-20 md:w-24 md:h-24 object-cover rounded-xl border border-gray-100">
                                             <div class="flex flex-col justify-center">
                                                 <a href="{{ url('/shop/' . $item->product->slug) }}" class="font-serif font-bold text-lg text-dark hover:text-primary transition">{{ $item->product->name }}</a>
                                                 <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">{{ $item->product->category->name }}</p>
@@ -100,8 +104,8 @@
                         
                         <div class="space-y-4 mb-6 text-sm text-gray-300 font-light">
                             <div class="flex justify-between">
-                                <span>Subtotal ({{ $cart->items->sum('quantity') }} item)</span>
-                                <span class="font-bold text-white">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                                <span id="summaryItemsText">Subtotal ({{ $cart->items->sum('quantity') }} item)</span>
+                                <span class="font-bold text-white" id="summarySubtotal">Rp {{ number_format($total, 0, ',', '.') }}</span>
                             </div>
                             <div class="flex justify-between">
                                 <span>Biaya Pengiriman</span>
@@ -111,12 +115,14 @@
                         
                         <div class="border-t border-gray-700 pt-6 mb-8 flex justify-between items-center">
                             <span class="font-bold tracking-wide uppercase text-sm">Total Estimasi</span>
-                            <span class="text-2xl font-bold text-primary">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                            <span class="text-2xl font-bold text-primary" id="summaryTotal">Rp {{ number_format($total, 0, ',', '.') }}</span>
                         </div>
 
-                        <a href="{{ url('/checkout') }}" class="block w-full bg-primary hover:bg-primary_hover text-white text-center font-bold py-4 rounded-full transition-all shadow-[0_5px_15px_rgba(197,131,124,0.3)] hover:-translate-y-1 tracking-wider text-sm uppercase">
-                            Proses Pembayaran
-                        </a>
+                        <form id="checkoutForm" action="{{ url('/checkout') }}" method="GET" onsubmit="return prepareCheckout()">
+                            <button type="submit" id="checkoutBtn" class="w-full bg-primary hover:bg-primary_hover text-white font-bold py-4 rounded-full transition-all shadow-[0_5px_15px_rgba(197,131,124,0.3)] hover:-translate-y-1 tracking-wider text-sm uppercase">
+                                Proses Pembayaran
+                            </button>
+                        </form>
                         
                         <div class="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -125,6 +131,74 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                function formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number).replace('Rp', 'Rp ').trim();
+                }
+
+                function toggleAll(source) {
+                    const checkboxes = document.querySelectorAll('.item-checkbox');
+                    checkboxes.forEach(cb => cb.checked = source.checked);
+                    updateTotal();
+                }
+
+                function updateTotal() {
+                    const checkboxes = document.querySelectorAll('.item-checkbox');
+                    let total = 0;
+                    let totalQty = 0;
+                    let allChecked = true;
+
+                    checkboxes.forEach(cb => {
+                        if(cb.checked) {
+                            total += parseInt(cb.getAttribute('data-price'));
+                            totalQty += parseInt(cb.getAttribute('data-qty'));
+                        } else {
+                            allChecked = false;
+                        }
+                    });
+
+                    document.getElementById('selectAll').checked = allChecked;
+                    
+                    const subtotalFormatted = formatRupiah(total);
+                    document.getElementById('summarySubtotal').textContent = subtotalFormatted;
+                    document.getElementById('summaryTotal').textContent = subtotalFormatted;
+                    document.getElementById('summaryItemsText').textContent = 'Subtotal (' + totalQty + ' item)';
+
+                    const btn = document.getElementById('checkoutBtn');
+                    if(total === 0) {
+                        btn.disabled = true;
+                        btn.classList.add('opacity-50', 'cursor-not-allowed');
+                        btn.classList.remove('hover:-translate-y-1', 'hover:bg-primary_hover');
+                    } else {
+                        btn.disabled = false;
+                        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        btn.classList.add('hover:-translate-y-1', 'hover:bg-primary_hover');
+                    }
+                }
+
+                function prepareCheckout() {
+                    const form = document.getElementById('checkoutForm');
+                    // Remove old hidden inputs
+                    form.querySelectorAll('input[type="hidden"]').forEach(el => el.remove());
+                    
+                    const checkboxes = document.querySelectorAll('.item-checkbox:checked');
+                    if(checkboxes.length === 0) {
+                        alert('Silakan pilih setidaknya satu produk untuk di-checkout.');
+                        return false;
+                    }
+
+                    checkboxes.forEach(cb => {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'selected_items[]';
+                        input.value = cb.value;
+                        form.appendChild(input);
+                    });
+
+                    return true;
+                }
+            </script>
         @endif
     </div>
 </div>

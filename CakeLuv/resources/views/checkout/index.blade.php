@@ -10,6 +10,13 @@
 
         <form action="{{ url('/checkout/process') }}" method="POST" class="flex flex-col lg:flex-row gap-10">
             @csrf
+            
+            @if(isset($selectedItems) && count($selectedItems) > 0)
+                @foreach($selectedItems as $itemId)
+                    <input type="hidden" name="selected_items[]" value="{{ $itemId }}">
+                @endforeach
+            @endif
+
             <!-- Form Details -->
             <div class="lg:w-2/3 space-y-8" data-aos="fade-up">
                 
