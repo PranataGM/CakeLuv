@@ -38,3 +38,18 @@ Route::middleware('auth')->group(function () {
 // Google OAuth
 Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Products
+    Route::get('/products', [\App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
+    Route::post('/products', [\App\Http\Controllers\Admin\ProductController::class, 'store'])->name('products.store');
+    Route::post('/products/{product}', [\App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
+    Route::post('/products/{product}/delete', [\App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
+    
+    // Orders
+    Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{order}/status', [\App\Http\Controllers\Admin\OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+});
